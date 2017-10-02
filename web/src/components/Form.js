@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './form.css';
 
 const Form = ({
   emailValue,
@@ -7,8 +8,8 @@ const Form = ({
   handleChange,
   handleSubmit
 }) => (
-  <form onSubmit={handleSubmit}>
-    <div>
+  <form className="contact-form" onSubmit={handleSubmit}>
+    <div className="contact-form-group">
       <label htmlFor="email">Your email address</label>
       <input
         name="email"
@@ -19,7 +20,7 @@ const Form = ({
         onChange={handleChange}
       />
     </div>
-    <div>
+    <div className="contact-form-group">
       <label htmlFor="message">Your message</label>
       <textarea
         name="message"
