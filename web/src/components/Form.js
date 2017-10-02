@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Form = ({handleChange}) => (
   <form>
@@ -23,5 +24,9 @@ const Form = ({handleChange}) => (
     <button type="submit">Submit</button>
   </form>
 );
+
+Form.propTypes = {
+  handleChange: PropTypes.func.isRequired
+};
 
 export default Form;
