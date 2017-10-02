@@ -42,9 +42,15 @@ yarn start
 ```
 
 Open http://localhost:3000/ to view the contact form app (unless your CLI provides a different address).
-
+View `console.log` outputs by opening the Console panel on Chrome or other browser.
 
 ## Other information
 
 - I used [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the app.
 - Attempt to write basic tests, but [Enzyme 3 has some breaking changes](https://github.com/facebookincubator/create-react-app/issues/3206) requiring further configuration.
+- I’ve left in `console.log`s so you can view when functions are being called in the console panel and their resulting output.
+
+## Challenges
+
+- Unfortunately, was unable to figure out how to connect the React app with the endpoint the php mock server.
+- The contact form needs more comprehensive unit testing.
