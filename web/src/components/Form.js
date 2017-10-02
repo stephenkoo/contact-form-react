@@ -13,7 +13,12 @@ const Form = ({handleChange}) => (
     </div>
     <div>
       <label htmlFor="message">Your message</label>
-      <textarea name="message" id="message" placeholder="Your message"/>
+      <textarea
+        name="message"
+        id="message"
+        placeholder="Your message"
+        onChange={handleChange}
+      />
     </div>
     <button type="submit">Submit</button>
   </form>
