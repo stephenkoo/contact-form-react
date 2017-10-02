@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Form = ({handleChange, handleSubmit}) => (
+const Form = ({
+  emailValue,
+  messageValue,
+  handleChange,
+  handleSubmit
+}) => (
   <form onSubmit={handleSubmit}>
     <div>
       <label htmlFor="email">Your email address</label>
@@ -9,6 +14,7 @@ const Form = ({handleChange, handleSubmit}) => (
         name="email"
         id="email"
         placeholder="Your email"
+        value={emailValue}
         onChange={handleChange}
       />
     </div>
@@ -18,6 +24,7 @@ const Form = ({handleChange, handleSubmit}) => (
         name="message"
         id="message"
         placeholder="Your message"
+        value={messageValue}
         onChange={handleChange}
       />
     </div>
@@ -26,6 +33,8 @@ const Form = ({handleChange, handleSubmit}) => (
 );
 
 Form.propTypes = {
+  emailValue: PropTypes.string.isRequired,
+  messageValue: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired
 };

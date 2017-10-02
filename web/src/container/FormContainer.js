@@ -4,7 +4,10 @@ import Form from '../components/Form';
 class FormContainer extends PureComponent {
   constructor(props) {
     super(props);
-    this.initialState = {};
+    this.initialState = {
+      email: '',
+      message: ''
+    };
 
     this.state = this.initialState;
 
@@ -31,6 +34,8 @@ class FormContainer extends PureComponent {
       <Form
         handleChange={this.updateState}
         handleSubmit={this.logState}
+        emailValue={this.state.email}
+        messageValue={this.state.message}
       />
     );
   }
