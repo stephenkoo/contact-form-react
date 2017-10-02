@@ -47,3 +47,4 @@ Open http://localhost:3000/ to view the contact form app (unless your CLI provid
 ## Other information
 
 - I used [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the app.
+- Attempt to write basic tests, but [Enzyme 3 has some breaking changes](https://github.com/facebookincubator/create-react-app/issues/3206) requiring further configuration.
