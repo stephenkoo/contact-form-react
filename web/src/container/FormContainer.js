@@ -29,8 +29,40 @@ class FormContainer extends PureComponent {
     const validForm = this.validateForm(this.state.email, this.state.message);
 
     if (validForm) {
-      console.log('Successfully posted:', this.state);
+      const payload = {
+        "data" : {
+          "type": "contact-message",
+          "attributes": this.state
+        }
+      }
+      console.log('Payload:', payload);
+      this.postToApi(payload);
     }
+  }
+
+  postToApi = payload => {
+    const init = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify(payload)
+    }
+
+    return fetch("http://notsure.com/what/endpoint", init)
+    .then((response) => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+
+      console.log("Form posted!", init);
+      this.setState(this.initialState);
+      return response;
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   validateForm = (email, message) => {
