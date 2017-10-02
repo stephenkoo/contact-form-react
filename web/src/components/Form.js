@@ -14,6 +14,7 @@ const Form = ({
         name="email"
         id="email"
         placeholder="Your email"
+        type="email"
         value={emailValue}
         onChange={handleChange}
       />
