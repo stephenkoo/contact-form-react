@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Form = ({handleChange}) => (
-  <form>
+const Form = ({handleChange, handleSubmit}) => (
+  <form onSubmit={handleSubmit}>
     <div>
       <label htmlFor="email">Your email address</label>
       <input
@@ -26,7 +26,8 @@ const Form = ({handleChange}) => (
 );
 
 Form.propTypes = {
-  handleChange: PropTypes.func.isRequired
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired
 };
 
 export default Form;

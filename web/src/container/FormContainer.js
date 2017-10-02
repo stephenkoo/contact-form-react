@@ -7,7 +7,9 @@ class FormContainer extends PureComponent {
     this.initialState = {};
 
     this.state = this.initialState;
+
     this.updateState = this.updateState.bind(this);
+    this.logState = this.logState.bind(this);
   }
 
   updateState = e => {
@@ -18,10 +20,19 @@ class FormContainer extends PureComponent {
     console.log('Log:', this.state);
   }
 
+  logState = e => {
+    e.preventDefault();
+
+    console.log('State:', this.state);
+  }
+
   render() {
-    return <Form
-      handleChange={this.updateState}
-    />
+    return (
+      <Form
+        handleChange={this.updateState}
+        handleSubmit={this.logState}
+      />
+    );
   }
 }
 
