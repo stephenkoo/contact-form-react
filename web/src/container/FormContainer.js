@@ -4,17 +4,23 @@ import Form from '../components/Form';
 class FormContainer extends PureComponent {
   constructor(props) {
     super(props);
+    this.initialState = {};
 
-    this.logValue = this.logValue.bind(this);
+    this.state = this.initialState;
+    this.updateState = this.updateState.bind(this);
   }
 
-  logValue = e => {
-    console.log('Log:', e.target.name, e.target.value)
+  updateState = e => {
+    this.setState({
+      ...this.state,
+      [e.target.name]: e.target.value
+    })
+    console.log('Log:', this.state);
   }
 
   render() {
     return <Form
-      handleChange={this.logValue}
+      handleChange={this.updateState}
     />
   }
 }
