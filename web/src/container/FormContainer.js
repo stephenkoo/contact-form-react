@@ -12,7 +12,7 @@ class FormContainer extends PureComponent {
     this.state = this.initialState;
 
     this.updateState = this.updateState.bind(this);
-    this.logState = this.logState.bind(this);
+    this.postForm = this.postForm.bind(this);
   }
 
   updateState = e => {
@@ -23,7 +23,7 @@ class FormContainer extends PureComponent {
     console.log('Log:', this.state);
   }
 
-  logState = e => {
+  postForm = e => {
     e.preventDefault();
 
     const validForm = this.validateForm(this.state.email, this.state.message);
@@ -58,7 +58,7 @@ class FormContainer extends PureComponent {
     return (
       <Form
         handleChange={this.updateState}
-        handleSubmit={this.logState}
+        handleSubmit={this.postForm}
         emailValue={this.state.email}
         messageValue={this.state.message}
       />
