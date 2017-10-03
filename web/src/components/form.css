@@ -30,3 +30,15 @@
   padding: .8rem 1.5rem;
   margin-bottom: 10px;
 }
+
+.contact-form-notification {
+  color: grey;
+}
+
+.contact-form-notification.contact-form-notification-failure {
+  color: red;
+}
+
+.contact-form-notification.contact-form-notification-success {
+  color: green;
+}
