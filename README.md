@@ -33,7 +33,7 @@ First, install [yarn](https://yarnpkg.com/lang/en/docs/install/) and use [nvm](h
 ```bash
 nvm install node
 nvm use node
-php server
+php -S localhost:5000 -t ./api
 cd web
 yarn
 yarn start
