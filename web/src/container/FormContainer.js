@@ -44,14 +44,12 @@ class FormContainer extends PureComponent {
     const init = {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Accept': 'application/json'
       },
       body: JSON.stringify(payload)
     }
 
-    return fetch("http://notsure.com/what/endpoint", init)
+    return fetch("http://localhost:5000", init)
     .then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
@@ -59,6 +57,7 @@ class FormContainer extends PureComponent {
 
       console.log("Form posted!", init);
       this.setState(this.initialState);
+      console.log("Response", response);
       return response;
     }).catch(err => {
       console.log(err);
