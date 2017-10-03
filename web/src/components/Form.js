@@ -17,6 +17,22 @@ const Form = ({
     {'contact-form-notification-success' : notificationType === 'submitted' }
   );
 
+  let notificationMessage;
+
+  switch (notificationType) {
+    case 'submitting':
+      notificationMessage = 'Hang on… Submitting now.';
+      break;
+    case 'failed':
+      notificationMessage = 'Oh no! We couldn’t submit your form. Something went wrong.';
+      break;
+    case 'submitted':
+      notificationMessage = 'Successfully submitted!';
+      break;
+    default:
+      notificationMessage = '';
+  }
+
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
       <div className="contact-form-group">
@@ -42,7 +58,7 @@ const Form = ({
       </div>
       <button type="submit">Submit</button>
       {notificationType &&
-        <div class={notificationClasses}>{notificationType}</div>
+        <div class={notificationClasses}>{notificationMessage}</div>
       }
     </form>
   )
