@@ -5,8 +5,11 @@ class FormContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.initialState = {
-      email: '',
-      message: ''
+      formSubmitState: '',
+      formValues: {
+        email: '',
+        message: ''
+      }
     };
 
     this.state = this.initialState;
@@ -15,24 +18,31 @@ class FormContainer extends PureComponent {
     this.postForm = this.postForm.bind(this);
   }
 
+  componentDidUpdate() {
+    console.log('State:', this.state);
+  }
+
   updateState = e => {
     this.setState({
-      ...this.state,
-      [e.target.name]: e.target.value
+      formValues: {
+        ...this.state.formValues,
+        [e.target.name]: e.target.value
+      }
     })
-    console.log('Log:', this.state);
   }
 
   postForm = e => {
+    const formValues = this.state.formValues;
+
     e.preventDefault();
 
-    const validForm = this.validateForm(this.state.email, this.state.message);
+    const validForm = this.validateForm(formValues.email, formValues.message);
 
     if (validForm) {
       const payload = {
         "data" : {
           "type": "contact-message",
-          "attributes": this.state
+          "attributes": formValues
         }
       }
       console.log('Payload:', payload);
@@ -49,17 +59,23 @@ class FormContainer extends PureComponent {
       body: JSON.stringify(payload)
     }
 
+    this.setState({ formSubmitState: 'submitting' });
+
     return fetch("http://localhost:5000", init)
     .then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
       }
 
+      this.setState({
+        ...this.initialState,
+        formSubmitState: 'submitted'
+      });
       console.log("Form posted!", init);
-      this.setState(this.initialState);
       console.log("Response", response);
       return response;
     }).catch(err => {
+      this.setState({ formSubmitState: 'failed' });
       console.log(err);
     });
   }
@@ -90,8 +106,9 @@ class FormContainer extends PureComponent {
       <Form
         handleChange={this.updateState}
         handleSubmit={this.postForm}
-        emailValue={this.state.email}
-        messageValue={this.state.message}
+        emailValue={this.state.formValues.email}
+        messageValue={this.state.formValues.message}
+        notificationType={this.state.formSubmitState}
       />
     );
   }
