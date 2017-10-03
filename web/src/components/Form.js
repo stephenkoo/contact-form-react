@@ -6,7 +6,8 @@ const Form = ({
   emailValue,
   messageValue,
   handleChange,
-  handleSubmit
+  handleSubmit,
+  notificationType
 }) => (
   <form className="contact-form" onSubmit={handleSubmit}>
     <div className="contact-form-group">
@@ -31,6 +32,9 @@ const Form = ({
       />
     </div>
     <button type="submit">Submit</button>
+    {notificationType &&
+      <div>{notificationType}</div>
+    }
   </form>
 );
 
@@ -38,7 +42,8 @@ Form.propTypes = {
   emailValue: PropTypes.string.isRequired,
   messageValue: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  notificationType: PropTypes.oneOf(['', 'submitting', 'submitted', 'failed'])
 };
 
 export default Form;

@@ -108,6 +108,7 @@ class FormContainer extends PureComponent {
         handleSubmit={this.postForm}
         emailValue={this.state.formValues.email}
         messageValue={this.state.formValues.message}
+        notificationType={this.state.formSubmitState}
       />
     );
   }
