@@ -33,9 +33,7 @@ First, install [yarn](https://yarnpkg.com/lang/en/docs/install/) and use [nvm](h
 ```bash
 nvm install node
 nvm use node
-cd api
-php
-cd ..
+php server
 cd web
 yarn
 yarn start
@@ -52,5 +50,4 @@ View `console.log` outputs by opening the Console panel on Chrome or other brows
 
 ## Challenges
 
-- Unfortunately, was unable to figure out how to connect the React app with the endpoint the php mock server.
 - The contact form needs more comprehensive unit testing.
