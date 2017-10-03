@@ -56,17 +56,23 @@ class FormContainer extends PureComponent {
       body: JSON.stringify(payload)
     }
 
+    this.setState({ formSubmitState: 'submitting' });
+
     return fetch("http://localhost:5000", init)
     .then((response) => {
       if (!response.ok) {
         throw Error(response.statusText);
       }
 
+      this.setState({
+        ...this.initialState,
+        formSubmitState: 'submitted'
+      });
       console.log("Form posted!", init);
-      this.setState(this.initialState);
       console.log("Response", response);
       return response;
     }).catch(err => {
+      this.setState({ formSubmitState: 'failed' });
       console.log(err);
     });
   }
