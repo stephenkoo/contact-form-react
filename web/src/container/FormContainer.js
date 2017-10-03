@@ -18,6 +18,10 @@ class FormContainer extends PureComponent {
     this.postForm = this.postForm.bind(this);
   }
 
+  componentDidUpdate() {
+    console.log('State:', this.state);
+  }
+
   updateState = e => {
     this.setState({
       formValues: {
@@ -25,7 +29,6 @@ class FormContainer extends PureComponent {
         [e.target.name]: e.target.value
       }
     })
-    console.log('Log:', this.state);
   }
 
   postForm = e => {
