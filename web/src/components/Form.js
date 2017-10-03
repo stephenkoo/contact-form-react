@@ -58,7 +58,7 @@ const Form = ({
       </div>
       <button type="submit">Submit</button>
       {notificationType &&
-        <div class={notificationClasses}>{notificationMessage}</div>
+        <div className={notificationClasses}>{notificationMessage}</div>
       }
     </form>
   )
