@@ -1,9 +1,17 @@
+// PureComponent is sort of complicated. Deep dive here: https://cdb.reacttraining.com/react-inline-functions-and-performance-bdff784f5578
 import React, { PureComponent } from 'react';
 import Form from '../components/Form';
 
 class FormContainer extends PureComponent {
   constructor(props) {
-    super(props);
+    // I might be wrong, but I don't think you need to super(props) _unless_ you're initializing state w/ props
+    super(props); 
+    
+    /** 
+     * also, props in initialState is sort of an anti-pattern if you do try to do it. 
+     * I wrote something up about this that seems similar to what you're try to do here: 
+     * https://medium.com/@justintulk/react-anti-patterns-props-in-initial-state-28687846cc2e
+     */
     this.initialState = {
       formSubmitState: '',
       formValues: {
@@ -11,42 +19,33 @@ class FormContainer extends PureComponent {
         message: ''
       }
     };
+     
+    // are you doing something like this? https://medium.com/@justintulk/best-practices-for-resetting-an-es6-react-components-state-81c0c86df98d
+    this.state = this.initialState; 
 
-    this.state = this.initialState;
-
+    // depending on webpack/babel settings you can frequently dump these .bind calls for cleaner component code
     this.updateState = this.updateState.bind(this);
     this.postForm = this.postForm.bind(this);
   }
 
-  componentDidUpdate() {
-    console.log('State:', this.state);
-  }
-
-  updateState = e => {
-    this.setState({
-      formValues: {
-        ...this.state.formValues,
-        [e.target.name]: e.target.value
-      }
-    })
-  }
+  // I would remove console.logs if I'm showing "production" code. (dumping componentDidUpdate)
 
   postForm = e => {
-    const formValues = this.state.formValues;
+    // I always do this up top (likely personal bias)
+    e.preventDefault(); 
+    
+    // you can destructure using something like `const { formValues } = this.state`
+    const formValues = this.state.formValues; 
+    const formisValid = this.validateForm(formValues.email, formValues.message);
 
-    e.preventDefault();
-
-    const validForm = this.validateForm(formValues.email, formValues.message);
-
-    if (validForm) {
-      const payload = {
+    // renaming is another minor preference, I try to make boolean tests read a little better in the code
+    if (formisValid) {
+      this.postToApi({
         "data" : {
           "type": "contact-message",
           "attributes": formValues
         }
-      }
-      console.log('Payload:', payload);
-      this.postToApi(payload);
+      });
     }
   }
 
@@ -59,6 +58,7 @@ class FormContainer extends PureComponent {
       body: JSON.stringify(payload)
     }
 
+    // I think this is a decent pattern for tracking state and handling different display conditions :thumbs-up:
     this.setState({ formSubmitState: 'submitting' });
 
     return fetch("http://localhost:5000", init)
@@ -68,15 +68,14 @@ class FormContainer extends PureComponent {
       }
 
       this.setState({
+        // okay - i see you are resetting to initialState. This doesn't seem that bad to me. 
         ...this.initialState,
         formSubmitState: 'submitted'
       });
-      console.log("Form posted!", init);
-      console.log("Response", response);
+
       return response;
     }).catch(err => {
       this.setState({ formSubmitState: 'failed' });
-      console.log(err);
     });
   }
 
@@ -91,7 +90,6 @@ class FormContainer extends PureComponent {
       return true;
     }
     catch(err) {
-      console.log(err);
       return false;
     }
   }
@@ -104,7 +102,14 @@ class FormContainer extends PureComponent {
   render() {
     return (
       <Form
-        handleChange={this.updateState}
+        handleChange={e => { 
+          this.setState({
+            formValues: {
+              ...this.state.formValues,
+              [e.target.name]: e.target.value
+            }
+          })
+        }
         handleSubmit={this.postForm}
         emailValue={this.state.formValues.email}
         messageValue={this.state.formValues.message}
